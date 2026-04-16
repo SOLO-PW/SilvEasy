@@ -1,6 +1,3 @@
-const db = wx.cloud.database()
-const _ = db.command
-
 Page({
   data: {
     elderList: [],
@@ -16,6 +13,17 @@ Page({
   },
 
   checkUserAndLoadElders: async function() {
+    const app = getApp();
+    if (!app.globalData.cloudInitialized) {
+      wx.showModal({
+        title: '提示',
+        content: '云开发环境未配置，请先在 app.js 中配置云开发环境 ID',
+        showCancel: false
+      });
+      this.setData({ loading: false });
+      return;
+    }
+
     try {
       const { result: userInfo } = await wx.cloud.callFunction({
         name: 'silveasyFunctions',
@@ -45,6 +53,9 @@ Page({
   },
 
   loadElders: function() {
+    const db = wx.cloud.database()
+    const _ = db.command
+    
     this.setData({ loading: true })
     
     db.collection('bindings')
