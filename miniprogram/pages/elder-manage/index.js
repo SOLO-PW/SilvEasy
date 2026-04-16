@@ -7,6 +7,14 @@ Page({
     loading: true
   },
 
+  formatDate: function(date) {
+    if (!date) return '未知'
+    if (date instanceof Date) {
+      return date.toLocaleDateString()
+    }
+    return date
+  },
+
   onLoad: function(options) {
     if (options.elderId) {
       this.setData({ elderId: options.elderId })
@@ -28,8 +36,14 @@ Page({
         .doc(this.data.elderId)
         .get()
       
+      const elderInfo = res.data
+      if (elderInfo.createTime) {
+        elderInfo.formattedCreateTime = this.formatDate(elderInfo.createTime)
+      } else {
+        elderInfo.formattedCreateTime = '未知'
+      }
       this.setData({
-        elderInfo: res.data,
+        elderInfo,
         loading: false
       })
     } catch (err) {

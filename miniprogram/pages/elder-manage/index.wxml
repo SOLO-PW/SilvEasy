@@ -40,7 +40,7 @@
       </view>
       <view class="info-item">
         <view class="info-label">注册时间</view>
-        <view class="info-value">{{elderInfo.createTime ? (elderInfo.createTime instanceof Date ? elderInfo.createTime.toLocaleDateString() : elderInfo.createTime) : '未知'}}</view>
+        <view class="info-value">{{elderInfo.formattedCreateTime}}</view>
       </view>
     </view>
 

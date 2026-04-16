@@ -1,8 +1,3 @@
 {
-  "navigationBarTitleText": "公交查询",
-  "permission": {
-    "scope.userLocation": {
-      "desc": "您的位置信息将用于查询附近公交站"
-    }
-  }
+  "navigationBarTitleText": "公交查询"
 }
