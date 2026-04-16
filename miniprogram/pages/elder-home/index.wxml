@@ -1,0 +1,53 @@
+<view class="container">
+  <view class="header">
+    <view class="welcome-text">您好！</view>
+    <view class="date-time">
+      <view class="date">{{currentDate}}</view>
+      <view class="time">{{currentTime}}</view>
+    </view>
+  </view>
+
+  <view wx:if="{{!loadingContacts && emergencyContacts.length > 0}}" class="emergency-section">
+    <view class="section-title">紧急联系人</view>
+    <view class="emergency-buttons">
+      <button 
+        wx:for="{{emergencyContacts}}" 
+        wx:key="_id"
+        class="emergency-btn" 
+        bindtap="makeCall"
+        data-phone="{{item.phone}}"
+      >
+        <view class="emergency-btn-icon">📞</view>
+        <view class="emergency-btn-name">{{item.name}}</view>
+        <view class="emergency-btn-phone">{{item.phone}}</view>
+      </button>
+    </view>
+  </view>
+
+  <view class="buttons-container">
+    <button class="function-btn weather-btn" bindtap="goToWeather">
+      <view class="btn-icon">🌤️</view>
+      <view class="btn-text">天气查询</view>
+    </button>
+
+    <button class="function-btn bus-btn" bindtap="goToBus">
+      <view class="btn-icon">🚌</view>
+      <view class="btn-text">公交查询</view>
+    </button>
+
+    <button class="function-btn community-btn" bindtap="goToCommunity">
+      <view class="btn-icon">🏘️</view>
+      <view class="btn-text">社区帮助</view>
+    </button>
+
+    <button class="function-btn contacts-btn" bindtap="goToContacts">
+      <view class="btn-icon">👥</view>
+      <view class="btn-text">查看更多联系人</view>
+    </button>
+
+    <button class="function-btn settings-btn" bindtap="goToSettings">
+      <view class="btn-icon">⚙️</view>
+      <view class="btn-text">设置</view>
+    </button>
+  </view>
+</view>

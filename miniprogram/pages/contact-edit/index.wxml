@@ -1,0 +1,46 @@
+<view class="container">
+  <view class="header">
+    <view class="title">{{isAssistanceMode ? (id ? '编辑' + elderName + '的联系人' : '添加' + elderName + '的联系人') : (id ? '编辑联系人' : '添加联系人')}}</view>
+  </view>
+
+  <view class="form-item">
+    <view class="label">姓名</view>
+    <input 
+      class="input" 
+      placeholder="请输入姓名" 
+      value="{{name}}"
+      bindinput="onNameInput"
+    />
+  </view>
+
+  <view class="form-item">
+    <view class="label">电话</view>
+    <input 
+      class="input" 
+      type="number"
+      placeholder="请输入电话号码" 
+      value="{{phone}}"
+      bindinput="onPhoneInput"
+    />
+  </view>
+
+  <view class="form-item">
+    <view class="label">标签</view>
+    <picker 
+      mode="selector" 
+      range="{{tags}}" 
+      range-key="label"
+      value="{{tagIndex}}"
+      bindchange="onTagChange"
+    >
+      <view class="picker">
+        {{tags[tagIndex].label}}
+      </view>
+    </picker>
+  </view>
+
+  <view class="buttons">
+    <button class="btn cancel-btn" bindtap="onCancel">取消</button>
+    <button class="btn save-btn" bindtap="onSave">保存</button>
+  </view>
+</view>

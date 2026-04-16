@@ -1,0 +1,48 @@
+<view class="container">
+  <view class="header">
+    <view class="title">绑定码</view>
+    <view class="subtitle">将此绑定码告诉子女，让他们绑定您</view>
+  </view>
+
+  <view class="content">
+    <view class="code-card">
+      <view wx:if="{{bindCode}}" class="code-display">
+        <view class="code-text">{{bindCode}}</view>
+        <view wx:if="{{countingDown}}" class="expire-time">
+          剩余时间: {{formatCountdown(countdownSeconds)}}
+        </view>
+      </view>
+      <view wx:else class="empty-code">
+        <image class="empty-icon" src="/images/icons/avatar.png" mode="aspectFit"></image>
+        <view class="empty-text">暂无有效绑定码</view>
+      </view>
+    </view>
+
+    <view class="action-buttons">
+      <button 
+        wx:if="{{bindCode}}" 
+        class="copy-btn" 
+        bindtap="copyBindCode"
+      >
+        <image class="btn-icon" src="/images/icons/copy.svg" mode="aspectFit"></image>
+        复制绑定码
+      </button>
+      <button 
+        class="generate-btn {{loading ? 'disabled' : ''}}" 
+        bindtap="generateBindCode"
+        disabled="{{loading}}"
+      >
+        {{loading ? '生成中...' : (bindCode ? '重新生成' : '生成绑定码')}}
+      </button>
+    </view>
+
+    <view class="tips-card">
+      <view class="tips-title">使用说明</view>
+      <view class="tips-item">1. 点击下方按钮生成绑定码</view>
+      <view class="tips-item">2. 将绑定码告诉您的子女</view>
+      <view class="tips-item">3. 子女在子女端输入绑定码即可完成绑定</view>
+      <view class="tips-item">4. 绑定码有效期为24小时，过期后需要重新生成</view>
+      <view class="tips-item">5. 每个绑定码只能使用一次</view>
+    </view>
+  </view>
+</view>

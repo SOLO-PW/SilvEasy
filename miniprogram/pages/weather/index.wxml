@@ -1,0 +1,66 @@
+<view class="container">
+  <view class="header">
+    <view class="title">天气查询</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading-container">
+    <view class="loading-text">正在加载天气信息...</view>
+  </view>
+
+  <view wx:elif="{{error}}" class="error-container">
+    <view class="error-icon">⚠️</view>
+    <view class="error-text">{{error}}</view>
+    <button class="retry-btn" bindtap="onRefresh">重新加载</button>
+  </view>
+
+  <view wx:else class="weather-container">
+    <view class="location-row">
+      <view class="location-icon">📍</view>
+      <view class="location-text">{{weather.city}}</view>
+      <button class="select-city-btn" bindtap="onSelectCity">切换城市</button>
+    </view>
+
+    <view class="weather-main">
+      <view class="weather-icon">{{weather.weatherIcon}}</view>
+      <view class="temperature">{{weather.temperature}}°C</view>
+      <view class="weather-status">{{weather.weather}}</view>
+    </view>
+
+    <view class="weather-details">
+      <view class="detail-item">
+        <view class="detail-label">💨 风力</view>
+        <view class="detail-value">{{weather.windDirection}} {{weather.windLevel}}</view>
+      </view>
+      <view class="detail-item">
+        <view class="detail-label">💧 湿度</view>
+        <view class="detail-value">{{weather.humidity}}%</view>
+      </view>
+      <view wx:if="{{weather.aqi}}" class="detail-item">
+        <view class="detail-label">🌬️ 空气质量</view>
+        <view class="detail-value">{{weather.aqiLevel}} ({{weather.aqi}})</view>
+      </view>
+    </view>
+
+    <view wx:if="{{weather.forecast}}" class="forecast-container">
+      <view class="forecast-title">未来三天预报</view>
+      <view class="forecast-list">
+        <view wx:for="{{weather.forecast}}" wx:key="date" class="forecast-item">
+          <view class="forecast-date">{{item.date}}</view>
+          <view class="forecast-icon">{{item.icon}}</view>
+          <view class="forecast-weather">{{item.weather}}</view>
+          <view class="forecast-temp">{{item.tempLow}}° ~ {{item.tempHigh}}°</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="update-time">
+      更新时间：{{weather.updateTime}}
+    </view>
+
+    <view class="action-buttons">
+      <button class="refresh-btn" bindtap="onRefresh">
+        🔄 刷新天气
+      </button>
+    </view>
+  </view>
+</view>

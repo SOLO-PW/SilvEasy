@@ -1,0 +1,14 @@
+<view class="container">
+  <view class="title">欢迎使用银龄通</view>
+  <view class="subtitle">请选择您的角色</view>
+  
+  <button class="role-btn elder-btn" bindtap="selectRole" data-role="elder">
+    <view class="role-icon">👴</view>
+    <view class="role-text">我是长辈</view>
+  </button>
+  
+  <button class="role-btn child-btn" bindtap="selectRole" data-role="child">
+    <view class="role-icon">👨‍👩‍👧</view>
+    <view class="role-text">我是子女</view>
+  </button>
+</view>

@@ -1,27 +1,80 @@
-/**app.wxss**/
+page {
+  background: #ffffff;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333333;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-} 
+  padding: 20px;
+}
 
 button {
-  background: initial;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 12px;
+  transition: all 0.2s;
 }
 
-button:focus{
-  outline: 0;
+button:active {
+  transform: scale(0.98);
+  opacity: 0.8;
 }
 
-button::after{
+button::after {
   border: none;
 }
 
+.btn-large {
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  font-size: 24px;
+  margin: 15px 0;
+}
 
-page {
-  background: #f6f6f6;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+.btn-medium {
+  width: 100%;
+  height: 70px;
+  line-height: 70px;
+  font-size: 22px;
+  margin: 12px 0;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+}
+
+.text-large {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.text-medium {
+  font-size: 20px;
+}
+
+.text-small {
+  font-size: 16px;
 }

@@ -1,0 +1,39 @@
+<view class="container">
+  <view class="header">
+    <view class="title">我的家庭</view>
+    <view class="subtitle">关爱家人，从这里开始</view>
+  </view>
+
+  <view class="content">
+    <view wx:if="{{!loading && elderList.length === 0}}" class="empty-state">
+      <image class="empty-icon" src="/images/icons/avatar.png" mode="aspectFit"></image>
+      <view class="empty-text">还没有绑定长辈</view>
+      <view class="empty-desc">点击下方按钮，绑定您的家人</view>
+    </view>
+
+    <view wx:else class="elder-list">
+      <view wx:for="{{elderList}}" wx:key="_id" class="elder-card">
+        <view class="card-header" bindtap="goToElderManage" data-elder-id="{{item.elderId}}">
+          <image class="elder-avatar" src="{{item.avatarUrl || '/images/icons/avatar.png'}}" mode="aspectFill"></image>
+          <view class="elder-info">
+            <view class="elder-name">{{item.nickname}}</view>
+            <view class="elder-relation">{{item.relation || '长辈'}}</view>
+          </view>
+          <image class="arrow-icon" src="/images/arrow.svg" mode="aspectFit"></image>
+        </view>
+        <view class="card-footer">
+          <button wx:if="{{item.phone}}" class="call-btn" bindtap="makeCall" data-phone="{{item.phone}}">
+            <image class="phone-icon" src="/images/icons/customer-service.svg" mode="aspectFit"></image>
+            拨打电话
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <button class="bind-btn" bindtap="goToBindElder">
+      绑定新长辈
+    </button>
+  </view>
+</view>

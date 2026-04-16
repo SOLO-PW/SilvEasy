@@ -1,0 +1,81 @@
+<view class="container">
+  <view class="header">
+    <view class="title">社区帮助</view>
+  </view>
+
+  <scroll-view class="category-scroll" scroll-x="true" show-scrollbar="false">
+    <view class="category-list">
+      <view 
+        wx:for="{{categories}}" 
+        wx:key="id"
+        class="category-item {{activeCategory === item.id ? 'active' : ''}}"
+        style="border-color: {{item.color}}; background: {{activeCategory === item.id ? item.color : '#fff'}}"
+        data-category="{{item.id}}"
+        bindtap="onCategoryChange"
+      >
+        <view class="category-icon">{{item.icon}}</view>
+        <view class="category-name">{{item.name}}</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="content">
+    <view wx:if="{{loading}}" class="loading">
+      <view class="loading-text">加载中...</view>
+    </view>
+
+    <view wx:elif="{{services.length === 0}}" class="empty">
+      <view class="empty-icon">📞</view>
+      <view class="empty-text">暂无服务电话</view>
+      <view class="empty-hint">点击下方按钮添加常用服务</view>
+    </view>
+
+    <view wx:else class="service-list">
+      <view 
+        wx:for="{{services}}" 
+        wx:key="_id"
+        class="service-item"
+      >
+        <view class="service-left">
+          <view class="service-icon">{{item.icon || '📋'}}</view>
+          <view class="service-info">
+            <view class="service-name">{{item.name}}</view>
+            <view wx:if="{{item.address}}" class="service-address">{{item.address}}</view>
+            <view class="service-phone">{{item.phone}}</view>
+          </view>
+        </view>
+        <view class="service-right">
+          <button 
+            class="call-btn"
+            data-phone="{{item.phone}}"
+            bindtap="makeCall"
+          >
+            拨打电话
+          </button>
+          <view class="action-buttons">
+            <button 
+              class="action-btn edit-btn"
+              data-id="{{item._id}}"
+              bindtap="onEditService"
+            >
+              编辑
+            </button>
+            <button 
+              class="action-btn delete-btn"
+              data-id="{{item._id}}"
+              bindtap="onDeleteService"
+            >
+              删除
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="add-button-wrapper">
+    <button class="add-button" bindtap="onAddService">
+      + 添加服务
+    </button>
+  </view>
+</view>
