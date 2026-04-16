@@ -142,6 +142,14 @@ Page({
   },
 
   onClickDatabase(powerList, selectedItem) {
+    const app = getApp();
+    if (!app.globalData.cloudInitialized) {
+      wx.showModal({
+        title: "提示",
+        content: "请在 `miniprogram/app.js` 中正确配置 `env` 参数",
+      });
+      return;
+    }
     wx.showLoading({
       title: "",
     });

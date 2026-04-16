@@ -34,6 +34,18 @@ Page({
   },
 
   verifyBindingAndLoadContacts: async function() {
+    const app = getApp();
+    if (!app.globalData.cloudInitialized) {
+      this.setData({ 
+        loading: false,
+        contacts: []
+      });
+      wx.showToast({
+        title: '云开发环境未初始化',
+        icon: 'none'
+      });
+      return;
+    }
     try {
       this.setData({ loading: true })
       const { result } = await wx.cloud.callFunction({
@@ -70,6 +82,18 @@ Page({
   },
 
   loadContacts: function() {
+    const app = getApp();
+    if (!app.globalData.cloudInitialized) {
+      this.setData({ 
+        loading: false,
+        contacts: []
+      });
+      wx.showToast({
+        title: '云开发环境未初始化',
+        icon: 'none'
+      });
+      return;
+    }
     this.setData({ loading: true })
     wx.cloud.callFunction({
       name: 'silveasyFunctions',

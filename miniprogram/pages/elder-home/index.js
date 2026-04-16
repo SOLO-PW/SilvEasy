@@ -43,6 +43,15 @@ Page({
   },
 
   loadEmergencyContacts: function() {
+    const app = getApp();
+    if (!app.globalData.cloudInitialized) {
+      this.setData({ 
+        loadingContacts: false,
+        emergencyContacts: []
+      });
+      console.warn('云开发环境未初始化，无法加载紧急联系人');
+      return;
+    }
     this.setData({ loadingContacts: true })
     db.collection('contacts')
       .where({
