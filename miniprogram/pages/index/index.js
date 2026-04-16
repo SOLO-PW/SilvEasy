@@ -1,5 +1,10 @@
 // index.js
 Page({
+  onLoad: function() {
+    wx.redirectTo({
+      url: '/pages/role-select/index'
+    });
+  },
   data: {
     showTip: false,
     powerList: [

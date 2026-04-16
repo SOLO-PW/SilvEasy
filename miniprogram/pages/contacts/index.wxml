@@ -1,0 +1,59 @@
+<view class="container">
+  <view class="header">
+    <view class="title">{{isAssistanceMode ? elderName + '的联系人' : '联系人管理'}}</view>
+  </view>
+
+  <view class="add-btn-container">
+    <button class="add-btn" bindtap="onAddContact">
+      <view class="add-btn-icon">+</view>
+      <view class="add-btn-text">添加联系人</view>
+    </button>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading">
+    <view class="loading-text">加载中...</view>
+  </view>
+
+  <view wx:elif="{{contacts.length === 0}}" class="empty">
+    <view class="empty-icon">👥</view>
+    <view class="empty-text">暂无联系人</view>
+    <view class="empty-hint">点击上方按钮添加联系人</view>
+  </view>
+
+  <view wx:else class="contact-list">
+    <view 
+      wx:for="{{contacts}}" 
+      wx:key="_id" 
+      class="contact-item"
+    >
+      <view class="contact-info">
+        <view class="contact-name">{{item.name}}</view>
+        <view class="contact-phone">{{item.phone}}</view>
+        <view class="contact-tag">{{item.tag || item.relation}}</view>
+      </view>
+      <view class="contact-actions">
+        <button 
+          class="action-btn call-btn" 
+          bindtap="onMakeCall"
+          data-phone="{{item.phone}}"
+        >
+          拨打
+        </button>
+        <button 
+          class="action-btn edit-btn" 
+          bindtap="onEditContact"
+          data-id="{{item._id}}"
+        >
+          编辑
+        </button>
+        <button 
+          class="action-btn delete-btn" 
+          bindtap="onDeleteContact"
+          data-id="{{item._id}}"
+        >
+          删除
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

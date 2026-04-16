@@ -1,0 +1,111 @@
+const db = wx.cloud.database()
+
+Page({
+  data: {
+    elderId: '',
+    elderInfo: null,
+    loading: true
+  },
+
+  onLoad: function(options) {
+    if (options.elderId) {
+      this.setData({ elderId: options.elderId })
+      this.loadElderInfo()
+    } else {
+      wx.showToast({
+        title: '参数错误',
+        icon: 'none'
+      })
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 1500)
+    }
+  },
+
+  loadElderInfo: async function() {
+    try {
+      const res = await db.collection('users')
+        .doc(this.data.elderId)
+        .get()
+      
+      this.setData({
+        elderInfo: res.data,
+        loading: false
+      })
+    } catch (err) {
+      console.error('加载长辈信息失败', err)
+      this.setData({ loading: false })
+      wx.showToast({
+        title: '加载失败',
+        icon: 'none'
+      })
+    }
+  },
+
+  makeCall: function() {
+    if (this.data.elderInfo?.phone) {
+      wx.makePhoneCall({
+        phoneNumber: this.data.elderInfo.phone
+      })
+    }
+  },
+
+  manageContacts: function() {
+    wx.navigateTo({
+      url: `/pages/contacts/index?elderId=${this.data.elderId}&elderName=${encodeURIComponent(this.data.elderInfo.nickname || '长辈')}`
+    })
+  },
+
+  manageContacts: function() {
+    wx.navigateTo({
+      url: '/pages/contacts/index'
+    })
+  },
+
+  manageCommunityServices: function() {
+    wx.navigateTo({
+      url: '/pages/community/index'
+    })
+  },
+
+  unbindElder: function() {
+    wx.showModal({
+      title: '确认解绑',
+      content: '确定要与该长辈解除绑定吗？',
+      success: async (res) => {
+        if (res.confirm) {
+          try {
+            const { result } = await wx.cloud.callFunction({
+              name: 'silveasyFunctions',
+              data: {
+                action: 'unbindElder',
+                elderId: this.data.elderId
+              }
+            })
+
+            if (result.success) {
+              wx.showToast({
+                title: '解绑成功',
+                icon: 'success'
+              })
+              setTimeout(() => {
+                wx.navigateBack()
+              }, 1500)
+            } else {
+              wx.showToast({
+                title: result.message || '解绑失败',
+                icon: 'none'
+              })
+            }
+          } catch (err) {
+            console.error('解绑失败', err)
+            wx.showToast({
+              title: '网络错误',
+              icon: 'none'
+            })
+          }
+        }
+      }
+    })
+  }
+})

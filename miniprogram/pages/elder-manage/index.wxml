@@ -1,0 +1,58 @@
+<view class="container" wx:if="{{!loading && elderInfo}}">
+  <view class="header">
+    <image class="avatar" src="{{elderInfo.avatarUrl || '/images/icons/avatar.png'}}" mode="aspectFill"></image>
+    <view class="info">
+      <view class="name">{{elderInfo.nickname || '长辈'}}</view>
+      <view class="phone" wx:if="{{elderInfo.phone}}">{{elderInfo.phone}}</view>
+    </view>
+  </view>
+
+  <view class="content">
+    <view class="card">
+      <view class="card-title">快捷操作</view>
+      <view class="action-list">
+        <view wx:if="{{elderInfo.phone}}" class="action-item" bindtap="makeCall">
+          <view class="action-icon-wrapper phone">
+            <image class="action-icon" src="/images/icons/customer-service.svg" mode="aspectFit"></image>
+          </view>
+          <view class="action-text">拨打电话</view>
+        </view>
+        <view class="action-item" bindtap="manageContacts">
+          <view class="action-icon-wrapper contacts">
+            <image class="action-icon" src="/images/icons/usercenter.svg" mode="aspectFit"></image>
+          </view>
+          <view class="action-text">管理联系人</view>
+        </view>
+        <view class="action-item" bindtap="manageCommunityServices">
+          <view class="action-icon-wrapper community">
+            <text class="emoji-icon">🏘️</text>
+          </view>
+          <view class="action-text">社区服务</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">基本信息</view>
+      <view class="info-item">
+        <view class="info-label">用户ID</view>
+        <view class="info-value">{{elderInfo._id}}</view>
+      </view>
+      <view class="info-item">
+        <view class="info-label">注册时间</view>
+        <view class="info-value">{{elderInfo.createTime ? (elderInfo.createTime instanceof Date ? elderInfo.createTime.toLocaleDateString() : elderInfo.createTime) : '未知'}}</view>
+      </view>
+    </view>
+
+    <view class="danger-zone">
+      <view class="danger-title">危险操作</view>
+      <button class="unbind-btn" bindtap="unbindElder">
+        解除绑定
+      </button>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{loading}}" class="loading-container">
+  <view class="loading-text">加载中...</view>
+</view>

@@ -1,14 +1,26 @@
 {
   "pages": [
+    "pages/role-select/index",
+    "pages/elder-home/index",
+    "pages/child-home/index",
+    "pages/bind-elder/index",
+    "pages/elder-manage/index",
+    "pages/elder-settings/index",
+    "pages/weather/index",
+    "pages/bus/index",
+    "pages/community/index",
+    "pages/community-service-edit/index",
+    "pages/contacts/index",
+    "pages/contact-edit/index",
     "pages/index/index",
     "pages/example/index"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
-    "navigationBarTextStyle": "black"
+    "backgroundColor": "#ffffff",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#2c3e50",
+    "navigationBarTitleText": "银龄通",
+    "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2",
