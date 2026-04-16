@@ -1,5 +1,3 @@
-const db = wx.cloud.database()
-
 Page({
   data: {
     elderId: '',
@@ -31,7 +29,18 @@ Page({
   },
 
   loadElderInfo: async function() {
+    const app = getApp();
+    if (!app.globalData.cloudInitialized) {
+      wx.showToast({
+        title: '云开发环境未初始化',
+        icon: 'none'
+      });
+      this.setData({ loading: false });
+      return;
+    }
+    
     try {
+      const db = wx.cloud.database()
       const res = await db.collection('users')
         .doc(this.data.elderId)
         .get()
@@ -65,14 +74,17 @@ Page({
   },
 
   manageContacts: function() {
+    const app = getApp();
+    if (!app.globalData.cloudInitialized) {
+      wx.showToast({
+        title: '云开发环境未初始化',
+        icon: 'none'
+      });
+      return;
+    }
+    
     wx.navigateTo({
       url: `/pages/contacts/index?elderId=${this.data.elderId}&elderName=${encodeURIComponent(this.data.elderInfo.nickname || '长辈')}`
-    })
-  },
-
-  manageContacts: function() {
-    wx.navigateTo({
-      url: '/pages/contacts/index'
     })
   },
 
@@ -83,6 +95,15 @@ Page({
   },
 
   unbindElder: function() {
+    const app = getApp();
+    if (!app.globalData.cloudInitialized) {
+      wx.showToast({
+        title: '云开发环境未初始化',
+        icon: 'none'
+      });
+      return;
+    }
+    
     wx.showModal({
       title: '确认解绑',
       content: '确定要与该长辈解除绑定吗？',

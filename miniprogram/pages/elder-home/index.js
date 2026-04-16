@@ -1,5 +1,3 @@
-const db = wx.cloud.database()
-
 Page({
   data: {
     currentDate: '',
@@ -52,6 +50,8 @@ Page({
       console.warn('云开发环境未初始化，无法加载紧急联系人');
       return;
     }
+    
+    const db = wx.cloud.database()
     this.setData({ loadingContacts: true })
     db.collection('contacts')
       .where({

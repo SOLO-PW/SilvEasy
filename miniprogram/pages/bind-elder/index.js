@@ -1,5 +1,3 @@
-const db = wx.cloud.database()
-
 Page({
   data: {
     bindCode: '',
@@ -25,6 +23,16 @@ Page({
   },
 
   bindElder: async function() {
+    const app = getApp();
+    if (!app.globalData.cloudInitialized) {
+      wx.showModal({
+        title: '提示',
+        content: '云开发环境未配置，请先在 app.js 中配置云开发环境 ID',
+        showCancel: false
+      });
+      return;
+    }
+
     if (!this.data.bindCode || this.data.bindCode.length !== 6) {
       wx.showToast({
         title: '请输入6位绑定码',

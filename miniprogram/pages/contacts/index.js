@@ -1,5 +1,3 @@
-const db = wx.cloud.database()
-
 Page({
   data: {
     contacts: [],
@@ -94,6 +92,8 @@ Page({
       });
       return;
     }
+    
+    const db = wx.cloud.database()
     this.setData({ loading: true })
     wx.cloud.callFunction({
       name: 'silveasyFunctions',
@@ -139,6 +139,15 @@ Page({
   },
 
   onAddContact: function() {
+    const app = getApp();
+    if (!app.globalData.cloudInitialized) {
+      wx.showToast({
+        title: '云开发环境未初始化',
+        icon: 'none'
+      });
+      return;
+    }
+    
     let url = '/pages/contact-edit/index'
     if (this.data.isAssistanceMode) {
       url += `?elderId=${this.data.elderId}&elderName=${encodeURIComponent(this.data.elderName)}`
@@ -149,6 +158,15 @@ Page({
   },
 
   onEditContact: function(e) {
+    const app = getApp();
+    if (!app.globalData.cloudInitialized) {
+      wx.showToast({
+        title: '云开发环境未初始化',
+        icon: 'none'
+      });
+      return;
+    }
+    
     const id = e.currentTarget.dataset.id
     let url = `/pages/contact-edit/index?id=${id}`
     if (this.data.isAssistanceMode) {
@@ -160,6 +178,15 @@ Page({
   },
 
   onDeleteContact: function(e) {
+    const app = getApp();
+    if (!app.globalData.cloudInitialized) {
+      wx.showToast({
+        title: '云开发环境未初始化',
+        icon: 'none'
+      });
+      return;
+    }
+    
     const id = e.currentTarget.dataset.id
     wx.showModal({
       title: '确认删除',
@@ -200,6 +227,7 @@ Page({
               })
             }
           } else {
+            const db = wx.cloud.database()
             db.collection('contacts').doc(id).remove()
               .then(() => {
                 wx.hideLoading()
