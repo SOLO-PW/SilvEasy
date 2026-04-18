@@ -264,91 +264,27 @@ const getWeather = async (event) => {
   try {
     const { latitude, longitude, city } = event;
     
-    const useMockData = true;
-
-    if (useMockData) {
-      return {
-        success: true,
-        data: {
-          city: city || '北京市',
-          temperature: 22,
-          weather: '晴',
-          weatherIcon: '☀️',
-          windDirection: '东南风',
-          windLevel: '3级',
-          humidity: 45,
-          aqi: 65,
-          aqiLevel: '良',
-          updateTime: new Date().toLocaleString('zh-CN'),
-          forecast: [
-            { date: '今天', weather: '晴', tempHigh: 26, tempLow: 18, icon: '☀️' },
-            { date: '明天', weather: '多云', tempHigh: 24, tempLow: 17, icon: '⛅' },
-            { date: '后天', weather: '小雨', tempHigh: 20, tempLow: 15, icon: '🌧️' }
-          ]
-        }
-      };
-    }
-
-    const WEATHER_API_KEY = 'YOUR_API_KEY_HERE';
-    
-    let locationParam = '';
-    if (latitude && longitude) {
-      locationParam = `${longitude},${latitude}`;
-    } else if (city) {
-      locationParam = city;
-    } else {
-      return {
-        success: false,
-        message: '缺少位置参数'
-      };
-    }
-
-    const url = `https://devapi.qweather.com/v7/weather/now?location=${encodeURIComponent(locationParam)}&key=${WEATHER_API_KEY}`;
-
-    return new Promise((resolve, reject) => {
-      https.get(url, (res) => {
-        let data = '';
-        res.on('data', (chunk) => {
-          data += chunk;
-        });
-        res.on('end', () => {
-          try {
-            const weatherData = JSON.parse(data);
-            if (weatherData.code === '200') {
-              const now = weatherData.now;
-              resolve({
-                success: true,
-                data: {
-                  city: weatherData.location?.name || city || '未知城市',
-                  temperature: parseInt(now.temp),
-                  weather: now.text,
-                  weatherIcon: getWeatherIcon(now.text),
-                  windDirection: now.windDir,
-                  windLevel: now.windScale + '级',
-                  humidity: parseInt(now.humidity),
-                  updateTime: new Date().toLocaleString('zh-CN')
-                }
-              });
-            } else {
-              resolve({
-                success: false,
-                message: '获取天气失败: ' + weatherData.code
-              });
-            }
-          } catch (e) {
-            resolve({
-              success: false,
-              message: '解析天气数据失败'
-            });
-          }
-        });
-      }).on('error', (err) => {
-        resolve({
-          success: false,
-          message: '请求天气API失败'
-        });
-      });
-    });
+    // 始终使用模拟数据，避免HTTP请求超时
+    return {
+      success: true,
+      data: {
+        city: city || '北京市',
+        temperature: 22,
+        weather: '晴',
+        weatherIcon: '☀️',
+        windDirection: '东南风',
+        windLevel: '3级',
+        humidity: 45,
+        aqi: 65,
+        aqiLevel: '良',
+        updateTime: new Date().toLocaleString('zh-CN'),
+        forecast: [
+          { date: '今天', weather: '晴', tempHigh: 26, tempLow: 18, icon: '☀️' },
+          { date: '明天', weather: '多云', tempHigh: 24, tempLow: 17, icon: '⛅' },
+          { date: '后天', weather: '小雨', tempHigh: 20, tempLow: 15, icon: '🌧️' }
+        ]
+      }
+    };
   } catch (error) {
     console.error('获取天气失败', error);
     return {
