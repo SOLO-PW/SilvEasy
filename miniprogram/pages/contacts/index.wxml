@@ -37,21 +37,21 @@
           bindtap="onMakeCall"
           data-phone="{{item.phone}}"
         >
-          拨打
+          📞 拨打
         </button>
         <button 
           class="action-btn edit-btn" 
           bindtap="onEditContact"
           data-id="{{item._id}}"
         >
-          编辑
+          ✏️ 编辑
         </button>
         <button 
           class="action-btn delete-btn" 
           bindtap="onDeleteContact"
           data-id="{{item._id}}"
         >
-          删除
+          🗑️ 删除
         </button>
       </view>
     </view>
