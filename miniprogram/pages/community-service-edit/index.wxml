@@ -36,6 +36,16 @@
     </view>
 
     <view class="form-item">
+      <view class="label">位置</view>
+      <button 
+        class="location-button" 
+        bindtap="selectLocation"
+      >
+        {{location ? '已选择位置' : '选择位置（可选）'}}
+      </button>
+    </view>
+
+    <view class="form-item">
       <view class="label">服务分类</view>
       <view class="category-list">
         <view 

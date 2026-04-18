@@ -376,6 +376,193 @@ const getWeatherIcon = (weatherText) => {
   return iconMap[weatherText] || '🌤️';
 };
 
+const getCommunityServices = async (event) => {
+  try {
+    const { elderId, category, latitude, longitude } = event;
+    
+    let query = db.collection('community_services');
+    
+    if (category) {
+      query = query.where({ category });
+    }
+    
+    if (elderId) {
+      query = query.where({ userId: elderId });
+    }
+    
+    const servicesRes = await query.orderBy('createTime', 'desc').get();
+    
+    let services = servicesRes.data;
+    
+    if (latitude && longitude) {
+      services = services.map(service => {
+        if (service.location) {
+          const distance = calculateDistance(
+            latitude, 
+            longitude, 
+            service.location.latitude, 
+            service.location.longitude
+          );
+          service.distance = distance.toFixed(1) + '米';
+        }
+        return service;
+      }).sort((a, b) => {
+        if (a.distance && b.distance) {
+          return parseFloat(a.distance) - parseFloat(b.distance);
+        }
+        return 0;
+      });
+    }
+    
+    return {
+      success: true,
+      services: services
+    };
+  } catch (error) {
+    console.error('获取社区服务失败', error);
+    return {
+      success: false,
+      message: '获取社区服务失败'
+    };
+  }
+};
+
+const deleteCommunityService = async (event) => {
+  try {
+    const { serviceId, elderId } = event;
+    
+    const serviceRes = await db.collection('community_services')
+      .doc(serviceId)
+      .get();
+    
+    if (!serviceRes.data || serviceRes.data.userId !== elderId) {
+      return {
+        success: false,
+        message: '服务不存在或无权限'
+      };
+    }
+    
+    await db.collection('community_services').doc(serviceId).remove();
+    
+    return {
+      success: true,
+      message: '删除成功'
+    };
+  } catch (error) {
+    console.error('删除社区服务失败', error);
+    return {
+      success: false,
+      message: '删除失败，请重试'
+    };
+  }
+};
+
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  const R = 6371e3;
+  const φ1 = (lat1 * Math.PI) / 180;
+  const φ2 = (lat2 * Math.PI) / 180;
+  const Δφ = ((lat2 - lat1) * Math.PI) / 180;
+  const Δλ = ((lon2 - lon1) * Math.PI) / 180;
+  
+  const a =
+    Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+    Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  
+  return R * c;
+};
+
+const addCommunityService = async (event) => {
+  try {
+    const { elderId, name, phone, address, category, icon, latitude, longitude } = event;
+    
+    const newService = {
+      userId: elderId,
+      name: name,
+      phone: phone,
+      address: address,
+      category: category || 'community',
+      icon: icon || '🏘️',
+      createTime: new Date(),
+      updateTime: new Date()
+    };
+    
+    if (latitude && longitude) {
+      newService.location = {
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude)
+      };
+    }
+    
+    const addRes = await db.collection('community_services').add({
+      data: newService
+    });
+    
+    newService._id = addRes._id;
+    
+    return {
+      success: true,
+      service: newService,
+      message: '添加成功'
+    };
+  } catch (error) {
+    console.error('添加社区服务失败', error);
+    return {
+      success: false,
+      message: '添加失败，请重试'
+    };
+  }
+};
+
+const updateCommunityService = async (event) => {
+  try {
+    const { serviceId, elderId, name, phone, address, category, icon, latitude, longitude } = event;
+    
+    const serviceRes = await db.collection('community_services')
+      .doc(serviceId)
+      .get();
+    
+    if (!serviceRes.data || serviceRes.data.userId !== elderId) {
+      return {
+        success: false,
+        message: '服务不存在或无权限'
+      };
+    }
+    
+    const updateData = {
+      updateTime: new Date()
+    };
+    
+    if (name !== undefined) updateData.name = name;
+    if (phone !== undefined) updateData.phone = phone;
+    if (address !== undefined) updateData.address = address;
+    if (category !== undefined) updateData.category = category;
+    if (icon !== undefined) updateData.icon = icon;
+    
+    if (latitude && longitude) {
+      updateData.location = {
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude)
+      };
+    }
+    
+    await db.collection('community_services').doc(serviceId).update({
+      data: updateData
+    });
+    
+    return {
+      success: true,
+      message: '更新成功'
+    };
+  } catch (error) {
+    console.error('更新社区服务失败', error);
+    return {
+      success: false,
+      message: '更新失败，请重试'
+    };
+  }
+};
+
 const verifyBinding = async (event) => {
   try {
     const { elderId } = event;
@@ -710,6 +897,14 @@ exports.main = async (event, context) => {
       return await updateElderContact(event);
     case "deleteElderContact":
       return await deleteElderContact(event);
+    case "getCommunityServices":
+      return await getCommunityServices(event);
+    case "deleteCommunityService":
+      return await deleteCommunityService(event);
+    case "addCommunityService":
+      return await addCommunityService(event);
+    case "updateCommunityService":
+      return await updateCommunityService(event);
     default:
       return {
         success: false,

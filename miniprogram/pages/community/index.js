@@ -12,7 +12,8 @@ Page({
     services: [],
     loading: true,
     currentUserId: null,
-    userRole: null
+    userRole: null,
+    location: null
   },
 
   onLoad: function() {
@@ -21,7 +22,7 @@ Page({
 
   onShow: function() {
     if (this.data.currentUserId) {
-      this.loadServices()
+      this.getLocationAndLoadServices()
     }
   },
 
@@ -37,12 +38,33 @@ Page({
           currentUserId: result.user._id,
           userRole: result.user.role
         })
-        this.loadServices()
+        this.getLocationAndLoadServices()
       }
     } catch (err) {
       console.error('加载用户信息失败', err)
       this.setData({ loading: false })
     }
+  },
+
+  getLocationAndLoadServices: function() {
+    const that = this;
+    
+    wx.getLocation({
+      type: 'wgs84',
+      success: function(res) {
+        that.setData({
+          location: {
+            latitude: res.latitude,
+            longitude: res.longitude
+          }
+        });
+        that.loadServices();
+      },
+      fail: function(err) {
+        console.error('获取位置失败', err);
+        that.loadServices();
+      }
+    });
   },
 
   loadServices: async function() {
@@ -54,7 +76,9 @@ Page({
         data: {
           action: 'getCommunityServices',
           elderId: this.data.currentUserId,
-          category: this.data.activeCategory
+          category: this.data.activeCategory,
+          latitude: this.data.location?.latitude,
+          longitude: this.data.location?.longitude
         }
       })
       
