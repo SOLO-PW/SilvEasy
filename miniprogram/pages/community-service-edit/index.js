@@ -9,6 +9,7 @@ Page({
     category: 'community',
     icon: '',
     currentUserId: null,
+    location: null,
     categories: [
       { id: 'community', name: '社区服务', icon: '🏘️' },
       { id: 'health', name: '医疗健康', icon: '🏥' },
@@ -59,7 +60,8 @@ Page({
           phone: res.data.phone || '',
           address: res.data.address || '',
           category: res.data.category || 'community',
-          icon: res.data.icon || ''
+          icon: res.data.icon || '',
+          location: res.data.location || null
         })
       }
     } catch (err) {
@@ -70,6 +72,46 @@ Page({
         icon: 'none'
       })
     }
+  },
+
+  selectLocation: function() {
+    const that = this;
+    wx.chooseLocation({
+      success: function(res) {
+        that.setData({
+          location: {
+            latitude: res.latitude,
+            longitude: res.longitude
+          },
+          address: res.address
+        });
+        wx.showToast({
+          title: '位置选择成功',
+          icon: 'success'
+        });
+      },
+      fail: function(err) {
+        console.error('选择位置失败', err);
+        if (err.errMsg && err.errMsg.includes('auth deny')) {
+          wx.showModal({
+            title: '需要位置授权',
+            content: '为了提供准确的位置信息，需要获取您的位置权限。请在设置中开启位置权限。',
+            confirmText: '去设置',
+            success: function(res) {
+              if (res.confirm) {
+                wx.openSetting({
+                  success: function(settingRes) {
+                    if (settingRes.authSetting['scope.userLocation']) {
+                      that.selectLocation();
+                    }
+                  }
+                });
+              }
+            }
+          });
+        }
+      }
+    });
   },
 
   onNameInput: function(e) {
@@ -128,7 +170,9 @@ Page({
             phone: this.data.phone,
             address: this.data.address,
             category: this.data.category,
-            icon: this.data.icon
+            icon: this.data.icon,
+            latitude: this.data.location?.latitude,
+            longitude: this.data.location?.longitude
           }
         })
       } else {
@@ -141,7 +185,9 @@ Page({
             phone: this.data.phone,
             address: this.data.address,
             category: this.data.category,
-            icon: this.data.icon
+            icon: this.data.icon,
+            latitude: this.data.location?.latitude,
+            longitude: this.data.location?.longitude
           }
         })
       }
