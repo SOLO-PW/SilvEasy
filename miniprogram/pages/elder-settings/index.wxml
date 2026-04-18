@@ -24,7 +24,7 @@
         class="copy-btn" 
         bindtap="copyBindCode"
       >
-        <image class="btn-icon" src="/images/icons/copy.svg" mode="aspectFit"></image>
+        <image class="btn-icon" src="/images/copy.svg" mode="aspectFit"></image>
         复制绑定码
       </button>
       <button 
