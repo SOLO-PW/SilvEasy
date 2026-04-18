@@ -9,30 +9,30 @@
 }
 
 .title {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
   color: white;
   margin-bottom: 10px;
 }
 
 .subtitle {
-  font-size: 22px;
+  font-size: 18px;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .role-btn {
   width: 100%;
   max-width: 400px;
-  height: 120px;
-  border-radius: 20px;
+  height: 100px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 15px 0;
+  margin: 12px 0;
   border: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   transition: all 0.3s;
 }
 
@@ -54,12 +54,12 @@
 }
 
 .role-icon {
-  font-size: 48px;
-  margin-bottom: 8px;
+  font-size: 36px;
+  margin-bottom: 6px;
 }
 
 .role-text {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: bold;
   color: white;
 }

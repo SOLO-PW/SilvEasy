@@ -6,17 +6,17 @@
 
 .header {
   background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
-  border-radius: 32rpx;
-  padding: 50rpx 40rpx;
-  margin-bottom: 40rpx;
+  border-radius: 24rpx;
+  padding: 40rpx 30rpx;
+  margin-bottom: 30rpx;
   box-shadow: 0 12rpx 32rpx rgba(26, 35, 126, 0.3);
 }
 
 .welcome-text {
-  font-size: 80rpx;
+  font-size: 60rpx;
   font-weight: bold;
   color: white;
-  margin-bottom: 24rpx;
+  margin-bottom: 16rpx;
   text-align: center;
 }
 
@@ -24,53 +24,53 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16rpx;
+  gap: 12rpx;
 }
 
 .date {
-  font-size: 48rpx;
+  font-size: 36rpx;
   color: rgba(255, 255, 255, 0.95);
   font-weight: 500;
 }
 
 .time {
-  font-size: 72rpx;
+  font-size: 54rpx;
   font-weight: bold;
   color: white;
 }
 
 .emergency-section {
-  margin-bottom: 40rpx;
+  margin-bottom: 30rpx;
 }
 
 .section-title {
-  font-size: 44rpx;
+  font-size: 36rpx;
   font-weight: bold;
   color: #1a237e;
-  margin-bottom: 24rpx;
-  padding-left: 16rpx;
-  border-left: 8rpx solid #1a237e;
+  margin-bottom: 20rpx;
+  padding-left: 12rpx;
+  border-left: 6rpx solid #1a237e;
 }
 
 .emergency-buttons {
   display: flex;
   flex-direction: column;
-  gap: 24rpx;
+  gap: 20rpx;
 }
 
 .emergency-btn {
   width: 100%;
   background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
-  border-radius: 28rpx;
+  border-radius: 24rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60rpx 40rpx;
+  padding: 40rpx 30rpx;
   border: none;
   box-shadow: 0 10rpx 32rpx rgba(211, 47, 47, 0.4);
   position: relative;
   overflow: hidden;
-  min-height: 240rpx;
+  min-height: 180rpx;
 }
 
 .emergency-btn::after {
@@ -83,20 +83,20 @@
 }
 
 .emergency-btn-icon {
-  font-size: 96rpx;
-  margin-bottom: 24rpx;
+  font-size: 72rpx;
+  margin-bottom: 16rpx;
 }
 
 .emergency-btn-name {
-  font-size: 56rpx;
+  font-size: 40rpx;
   font-weight: bold;
   color: white;
-  margin-bottom: 12rpx;
+  margin-bottom: 8rpx;
   text-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.3);
 }
 
 .emergency-btn-phone {
-  font-size: 40rpx;
+  font-size: 32rpx;
   color: rgba(255, 255, 255, 0.98);
   text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
   font-weight: 500;
@@ -105,16 +105,16 @@
 .buttons-container {
   display: flex;
   flex-direction: column;
-  gap: 24rpx;
+  gap: 20rpx;
 }
 
 .function-btn {
   width: 100%;
-  height: 180rpx;
-  border-radius: 28rpx;
+  height: 140rpx;
+  border-radius: 24rpx;
   display: flex;
   align-items: center;
-  padding: 0 40rpx;
+  padding: 0 30rpx;
   border: none;
   box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
   position: relative;
@@ -152,14 +152,14 @@
 }
 
 .btn-icon {
-  font-size: 84rpx;
-  margin-right: 40rpx;
-  width: 100rpx;
+  font-size: 64rpx;
+  margin-right: 30rpx;
+  width: 80rpx;
   text-align: center;
 }
 
 .btn-text {
-  font-size: 48rpx;
+  font-size: 36rpx;
   font-weight: bold;
   color: white;
   text-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.2);
