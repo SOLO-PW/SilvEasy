@@ -1,23 +1,26 @@
 .container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
   padding-bottom: 40rpx;
 }
 
 .header {
-  padding: 60rpx 40rpx 40rpx;
+  padding: 50rpx 40rpx 40rpx;
   color: #fff;
+  text-align: center;
 }
 
 .title {
-  font-size: 48rpx;
+  font-size: 56rpx;
   font-weight: bold;
-  margin-bottom: 16rpx;
+  margin-bottom: 20rpx;
+  text-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.3);
 }
 
 .subtitle {
-  font-size: 28rpx;
-  opacity: 0.9;
+  font-size: 32rpx;
+  opacity: 0.95;
+  line-height: 1.4;
 }
 
 .content {
@@ -26,10 +29,10 @@
 
 .code-card {
   background: #fff;
-  border-radius: 24rpx;
-  padding: 60rpx 40rpx;
+  border-radius: 28rpx;
+  padding: 70rpx 40rpx;
   margin-bottom: 30rpx;
-  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10rpx 32rpx rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
@@ -40,81 +43,96 @@
 }
 
 .code-text {
-  font-size: 72rpx;
+  font-size: 84rpx;
   font-weight: bold;
-  color: #667eea;
-  letter-spacing: 16rpx;
-  margin-bottom: 20rpx;
+  color: #1a237e;
+  letter-spacing: 20rpx;
+  margin-bottom: 24rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
 }
 
 .expire-time {
-  font-size: 26rpx;
-  color: #999;
+  font-size: 32rpx;
+  color: #666;
+  font-weight: 500;
 }
 
 .empty-code {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40rpx 0;
+  padding: 60rpx 0;
 }
 
 .empty-icon {
-  width: 120rpx;
-  height: 120rpx;
-  opacity: 0.2;
-  margin-bottom: 20rpx;
+  width: 160rpx;
+  height: 160rpx;
+  opacity: 0.3;
+  margin-bottom: 30rpx;
 }
 
 .empty-text {
-  font-size: 28rpx;
-  color: #999;
+  font-size: 36rpx;
+  color: #666;
+  font-weight: 500;
 }
 
 .action-buttons {
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
+  gap: 24rpx;
   margin-bottom: 30rpx;
 }
 
 .copy-btn {
   width: 100%;
-  height: 96rpx;
+  height: 112rpx;
   background: #fff;
-  color: #667eea;
-  border: 2rpx solid #667eea;
-  border-radius: 48rpx;
-  font-size: 30rpx;
-  font-weight: 500;
+  color: #1a237e;
+  border: 3rpx solid #1a237e;
+  border-radius: 56rpx;
+  font-size: 36rpx;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease;
 }
 
 .copy-btn::after {
   border: none;
 }
 
+.copy-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 16rpx rgba(26, 35, 126, 0.2);
+}
+
 .btn-icon {
-  width: 36rpx;
-  height: 36rpx;
-  margin-right: 12rpx;
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 16rpx;
 }
 
 .generate-btn {
   width: 100%;
-  height: 96rpx;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  height: 112rpx;
+  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
   color: #fff;
-  border-radius: 48rpx;
-  font-size: 32rpx;
-  font-weight: 500;
+  border-radius: 56rpx;
+  font-size: 36rpx;
+  font-weight: bold;
   border: none;
+  transition: all 0.2s ease;
 }
 
 .generate-btn::after {
   border: none;
+}
+
+.generate-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 16rpx rgba(211, 47, 47, 0.3);
 }
 
 .generate-btn.disabled {
@@ -123,20 +141,23 @@
 
 .tips-card {
   background: rgba(255, 255, 255, 0.15);
-  border-radius: 24rpx;
-  padding: 30rpx;
+  border-radius: 28rpx;
+  padding: 40rpx;
+  backdrop-filter: blur(10rpx);
 }
 
 .tips-title {
-  font-size: 28rpx;
+  font-size: 36rpx;
   color: #fff;
-  font-weight: 500;
-  margin-bottom: 20rpx;
+  font-weight: bold;
+  margin-bottom: 24rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
 }
 
 .tips-item {
-  font-size: 26rpx;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 0.95);
   line-height: 1.6;
-  margin-bottom: 12rpx;
+  margin-bottom: 16rpx;
+  text-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.1);
 }
